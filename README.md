@@ -1,5 +1,3 @@
-# README.md
-
 # Leisure Center Activity Management System
 
 ## Overview

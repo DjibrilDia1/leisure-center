@@ -2,29 +2,29 @@
 #include <stdlib.h>
 #include "graph.h"
 
-// Structure to represent a node in the graph
+// Structure pour définir un type Node:  sommet(noeud)
 typedef struct Node {
     int activity_id;
     struct Node* next;
 } Node;
 
-// Structure to represent the graph
+// Structure pour définir un type graph: ensembles de sommets et d'arêtes
 typedef struct Graph {
-    int numActivities;
+    int V; // nombre de sommets
     Node** adjLists;
 } Graph;
 
-// Function to create a graph
-Graph* createGraph(int activities) {
+// Fonction pour créer un graphe
+struct Graph* createGraph(int activities) {
     // Créer un graphe contenant V sommets
 }
 
-// Function to add an edge to the graph
+// Fonction pour ajouter une arrete entre deux sommets
 void addEdge(Graph* graph, int src, int dest) {
     // ajouter une arrete entre deux sommets
 }
 
-// Function to print the graph
+// Fonction pour afficher les activités d'un graphe
 void displayGraph(Graph* graph) {
     // Afficher toutes les activités
 }
