@@ -1,21 +1,22 @@
 #ifndef ACTIVITIES_H
 #define ACTIVITIES_H
-#include "graph.h"
 
-typedef struct Activity {
+// declaration anticipée
+struct Graph;
+//struct Graph;
+typedef struct Activity { // Activité == noeud du graphe
     char name[100]; // nom de l'activité
+    int id; // identifiant de l'activité
     char description[100]; // description de l'activité
-    int id; // identifiant de l'activité(optionnel)
-    struct Activity* next;
+    int dest; // destination de l'activité
+    struct Activity* next; // Prochain noeud de la liste
 } Activity;
 
-// ajoute une nouvelle activité à la liste
-void add_activity(struct Activity** head, char* name);
 
-// Function to remove an activity from the list
-void remove_activity(struct Activity** head, char* name);
+// Prototypes
+// Créer une activité
+struct Activity* newActivity();
+// Ajouter une activité au graphe
+void add_activity(struct Graph** graph, int position);
 
-// Function to recommend activities based on user preferences
-void recommend_activities(struct Activity* head, const char* preference);
-
-#endif // ACTIVITIES_H
+#endif 

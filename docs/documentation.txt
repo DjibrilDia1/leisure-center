@@ -1,0 +1,13 @@
+Notre logiciel permet la gestion digital d'un centre de loisir et propose différent fonctionalités tels que:
+- CRUD activité/utilisateur
+- Recommandation d'activités basée sur un modèle de graphe, où chaque activité est un nœud et 
+les relations entre elles sont des arêtes.
+
+1 - Les Information a remplir pour une activité:
+  * nom de l'activité
+  * description de l'activité
+
+2 - Les Informations a remplir pour un utilisateur
+  * Nom de l'utilisateur
+  * Prenom de l'utilisateur
+  

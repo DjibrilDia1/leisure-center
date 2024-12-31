@@ -1,35 +1,34 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "graph.h"
+#include "activities.h"
+#define MAX_ACTIVITIES 100 // nombre maximum d'activités(NODES)
 
-// Structure pour définir un type Node:  sommet(noeud)
-typedef struct Node {
-    int activity_id;
-    struct Node* next;
-} Node;
+// Créer un graph avec un nombre de sommets donné
+struct Graph* createGraph(int max_V) {
+    // Allouer de la mémoire pour le graphe
+    struct Graph* graph = (struct Graph*)malloc(sizeof(struct Graph));
+    if (graph == NULL) {
+        printf("Erreur : Allocation memoire échouee.\n");
+        exit(1);
+    }
 
-// Structure pour définir un type graph: ensembles de sommets et d'arêtes
-typedef struct Graph {
-    int V; // nombre de sommets
-    Node** adjLists;
-} Graph;
+    graph->V = 0; // Initialement, pas de nœuds
+    graph->max_V = max_V;
 
-// Fonction pour créer un graphe
-struct Graph* createGraph(int activities) {
-    // Créer un graphe contenant V sommets
+    // Allouer de la mémoire pour la liste d'adjacence
+    graph->head = (Activity**)malloc(max_V * sizeof(Activity*));
+    if (graph->head == NULL) {
+        printf("Erreur : Allocation mémoire échouee.\n");
+        free(graph);
+        exit(1);
+    }
+
+    // Initialiser toutes les positions à NULL
+    for (int i = 0; i < max_V; i++) {
+        graph->head[i] = NULL;
+    }
+    return graph;
 }
 
-// Fonction pour ajouter une arrete entre deux sommets
-void addEdge(Graph* graph, int src, int dest) {
-    // ajouter une arrete entre deux sommets
-}
 
-// Fonction pour afficher les activités d'un graphe
-void displayGraph(Graph* graph) {
-    // Afficher toutes les activités
-}
-
-// Function to free the graph
-void freeGraph(Graph* graph) {
-   // Libérer la mémoire allouée pour le graphe
-}
