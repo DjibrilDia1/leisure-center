@@ -1,102 +1,129 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include "../include/graph.h"  // inclure le fichier graph.h
+#include "../include/graph.h"      // inclure le fichier graph.h
 #include "../include/activities.h" // inclure le fichier activities.h
-#include "../include/menu.h" // inclure le fichier menu.h
-#include "../include/utils.h" // inclure le fichier utils.h
+#include "../include/menu.h"       // inclure le fichier menu.h
+#include "../include/utils.h"      // inclure le fichier utils.h
+#include "../include/users.h"      // inclure le fichier users.h
 
-# define MAX_ACTIVITIES 100 // nombre maximum d'activités(NODES)
+#define MAX_ACTIVITIES 100 // nombre maximum d'activités(NODES)
+#define MAX_USERS 100      // nombre maximum d'activités(NODES)
 
-/* 
+/*
     Auteur: Djibril_Dia
     Date:   29/12/2024
     Objectif: Ce projet a pour but de développer une application de gestion d'un centre de loisir en C.
 */
 
-int main() {
+int main(void) {
     // Initialisation du graphe
     struct Graph *graph = NULL;
+    // Réserver de la mémoire pour les utilisateurs
+    struct User *users = malloc(MAX_USERS * sizeof(struct User));
     // Créer un graphe avec un nombre de sommets donné
     graph = createGraph(MAX_ACTIVITIES);
-    // Variables pour les choix des menus 
-    int choix_menu1, choix_menu2, sous_choix;
+    // Variables pour les choix des menus
+    int choix_menu1, choix_menu2,choix_menu3 , sous_choix;
 
     do {
         clear_screen();
         menu1();
-        printf("\n\t\t\t\tChoix: ");
-
-        // conrtôle de saisie pour le choix du menu1
-        while (scanf("%d", &choix_menu1) != 1 || (choix_menu1 != 1 && choix_menu1 != 2)) {
-            while (getchar() != '\n');
-            printf("\n\t\t\t\tEntree invalide. Veuillez entrer 1 ou 2.\n");
-            printf("\n\t\t\t\tChoix: ");
-        }
+        printf("\n\t\tChoix: ");
+        // Choix du menu et Contrôle de saisie pour le choix du menu1
+        control_saisie1(&choix_menu1);
 
         switch (choix_menu1) {
-            case 1: {
-                // effacer l'écran avant d'afficher le menu2
+            case 1:
                 clear_screen();
                 menu2();
-                printf("\n\t\t\t\tChoix: ");
-                // controle de saisie pour le choix du menu2
-                while (scanf("%d", &choix_menu2) != 1 || (choix_menu2 < 0 || choix_menu2 > 12)) {
-                    while (getchar() != '\n');
-                    printf("\n\tEntree invalide. Veuillez entrer un nombre entre 0 et 12.\n");
-                    printf("\n\tChoix: ");
-                }
+                printf("\n\t\tChoix: ");
+                control_saisie1(&choix_menu2);  // Now validates for full menu range
 
-                switch (choix_menu2) { 
-                    case 1: { // Ajouter une activité dans le graph 
-                        do
-                        {
+                switch (choix_menu2) {
+                    case 1:
+                        // Ajouter une activité dans le graphe
+                        do {
                             clear_screen();
                             add_activity(&graph);
-                            printf("\n\t1 pour continuer a creer");
-                            printf("\n\t0 pour annuler\n");
-                            printf("\n\tchoix:");
-                            while(scanf("%d",&sous_choix) != 1 ||(sous_choix != 1 && sous_choix != 0)){
-                                getchar();
-                                printf("\n\t1 pour continuer a creer");
-                                printf("\n\t0 pour annuler\n");
-                                printf("\n\tchoix:");
-                            }
+                            // Contrôle de saisie
+                            printf("\n\t\tContinuer? (1=Oui, 0=Non): ");
+                            control_saisie(&sous_choix);
                         } while (sous_choix == 1);
-
                         break;
-                    }
-                    case 2: { // Afficher le graphe
-                        clear_screen();
-                        if (graph != NULL) printGraph(graph);
-                        else printf("\n\tLe graphe est vide.\n");
 
+                    case 2:
+                        // Afficher le graphe
+                        clear_screen();
+                        if (graph != NULL) {
+                            printGraph(graph);
+                        } else {
+                            printf("\n\tLe graphe est vide.\n");
+                        }
                         wait_for_keypress();
                         break;
-                    }
 
-                    case 3: { 
-                        
+                    case 3:
+                        // Ajouter un ou plusieurs utilisateurs
+                        do {
+                            clear_screen();
+                            menu_addUser();
+                            // Contrôle de saisie
+                            printf("\n\t\t\t\tChoix: ");
+                            // Choix du menu et Contrôle de saisie pour le choix du menu1
+                            control_saisie(&choix_menu3);
+
+                            switch (choix_menu3) {
+                                case 1:
+                                    do {
+                                        clear_screen();
+                                        menu_addUser();
+                                        add_users(users);
+                                        // Contrôle de saisie
+                                        printf("\n\t\tContinuer? (1=Oui, 0=Non): ");
+                                        control_saisie(&sous_choix);
+                                    } while (sous_choix == 1);
+                                    break;
+
+                                case 0:
+                                    // Retour au menu
+                                    clear_screen();
+                                    break;
+
+                                default:
+                                    // Entrée invalide
+                                    getchar();
+                                    clear_screen();
+                                    break;
+                            }
+                        } while (sous_choix == 1);
+                        clear_screen();
                         break;
-                    }
+
+                    case 4:
+                        // Afficher les utilisateurs
+                        clear_screen();
+                        display_users(users);
+                        break;
+
                     default:
                         break;
                 }
                 break;
-            }
-            case 2: {
+
+            case 2:
                 if (graph != NULL) {
-                    //freeGraph(graph);
+                    freeGraph(graph);
                 }
                 exit(0);
-            }
+
             default:
                 clear_screen();
                 break;
         }
         clear_screen();
     } while (choix_menu1 != 2);
-    
+
     freeGraph(graph);
     return 0;
 }
