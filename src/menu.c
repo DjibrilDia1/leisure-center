@@ -16,15 +16,15 @@ void menu1(){
 void menu2() {
     // interface du sous menu
     printf("\n\t***************************************************\n");
-    printf("\t\t                     MENU                          \n");
+    printf("\t\t                MENU                         \n");
     printf("\t**************************************************\n");
-    printf("\n\t\t1. Ajouter une nouvelle activite\n");
+    printf("\n\t\t1.Ajouter une nouvelle activite\n");
     printf("\t\t2. Afficher toutes les activites disponibles\n");
-    printf("\t\t3. Ajouter un utilisateur ou plusieurs utilisateurs\n");
-    printf("\t\t3. Afficher utilisateurs\n");
-    printf("\t\t4. Supprimer une activite\n");
-    printf("\t\t5. Ajouter un nouvel utilisateur\n");
-    printf("\t\t6. Afficher tous les utilisateurs\n");
+    printf("\t\t3. Gerer activites\n");
+    printf("\t\t4. Supprimer activites\n");
+    printf("\t\t-----------------------------------------------\n");
+    printf("\t\t5. Ajouter un utilisateur ou plusieurs utilisateurs\n");
+    printf("\t\t6. Afficher utilisateurs\n");
     printf("\t\t7. Modifier un utilisateur\n");
     printf("\t\t8. Supprimer un utilisateur\n");
     printf("\t\t9. Recommander une activite a un utilisateur\n");

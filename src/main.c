@@ -36,80 +36,103 @@ int main(void) {
         switch (choix_menu1) {
             case 1:
                 clear_screen();
-                menu2();
-                printf("\n\t\tChoix: ");
-                control_saisie1(&choix_menu2);  // Now validates for full menu range
+                do
+                    {
+                        menu2();
+                        printf("\n\t\tChoix: ");
+                        control_saisie1(&choix_menu2);  // Now validates for full menu range
 
-                switch (choix_menu2) {
-                    case 1:
-                        // Ajouter une activité dans le graphe
-                        do {
-                            clear_screen();
-                            add_activity(&graph);
-                            // Contrôle de saisie
-                            printf("\n\t\tContinuer? (1=Oui, 0=Non): ");
-                            control_saisie(&sous_choix);
-                        } while (sous_choix == 1);
-                        break;
+                        switch (choix_menu2) {
+                            case 1:
+                                // Ajouter une activité dans le graphe
+                                do {
+                                    clear_screen();
+                                    add_activity(&graph);
+                                    // Contrôle de saisie
+                                    printf("\n\t\tContinuer? (1=Oui, 0=Non): ");
+                                    control_saisie(&sous_choix);
+                                } while (sous_choix == 1);
+                                clear_screen();
+                                break;
 
-                    case 2:
-                        // Afficher le graphe
-                        clear_screen();
-                        if (graph != NULL) {
-                            printGraph(graph);
-                        } else {
-                            printf("\n\tLe graphe est vide.\n");
-                        }
-                        wait_for_keypress();
-                        break;
+                            case 2:
+                                // Afficher le graphe
+                                clear_screen();
+                                if (graph != NULL) {
+                                    printGraph(graph);
+                                } else {
+                                    printf("\n\tLe graphe est vide.\n");
+                                }
+                                wait_for_keypress();
+                                clear_screen();
+                                break;
 
-                    case 3:
-                        // Ajouter un ou plusieurs utilisateurs
-                        do {
-                            clear_screen();
-                            menu_addUser();
-                            // Contrôle de saisie
-                            printf("\n\t\t\t\tChoix: ");
-                            // Choix du menu et Contrôle de saisie pour le choix du menu1
-                            control_saisie(&choix_menu3);
-
-                            switch (choix_menu3) {
-                                case 1:
-                                    do {
-                                        clear_screen();
-                                        menu_addUser();
-                                        add_users(users);
-                                        // Contrôle de saisie
-                                        printf("\n\t\tContinuer? (1=Oui, 0=Non): ");
+                            case 3:
+                                // Gérer les activités
+                                // Connecter deux activités
+                                do {
+                                    clear_screen();
+                                    if (graph != NULL && graph->V >= 2) {
+                                        add_edge(&graph);
+                                        printf("\nContinuer a connecter des activites? (1=Oui, 0=Non): ");
                                         control_saisie(&sous_choix);
-                                    } while (sous_choix == 1);
-                                    break;
-
-                                case 0:
-                                    // Retour au menu
+                                    } else {
+                                        printf("\nAjoutez au moins deux activites avant de les connecter.\n");
+                                        wait_for_keypress();
+                                        sous_choix = 0;
+                                    }
+                                } while (sous_choix == 1);
+                                clear_screen();
+                                break;
+                            case 4:
+                                // Supprimer les activités
+                                break;
+                            
+                            case 5 :// Ajouter un ou plusieurs utilisateurs
+                                do {
                                     clear_screen();
-                                    break;
+                                    menu_addUser();
+                                    // Contrôle de saisie
+                                    printf("\n\t\tChoix: ");
+                                    // Choix du menu et Contrôle de saisie pour le choix du menu1
+                                    control_saisie(&choix_menu3);
 
-                                default:
-                                    // Entrée invalide
-                                    getchar();
-                                    clear_screen();
-                                    break;
-                            }
-                        } while (sous_choix == 1);
-                        clear_screen();
-                        break;
+                                    switch (choix_menu3) {
+                                        case 1:
+                                            do {
+                                                clear_screen();
+                                                menu_addUser();
+                                                add_users(users);
+                                                // Contrôle de saisie
+                                                printf("\n\t\tContinuer? (1=Oui, 0=Non): ");
+                                                control_saisie(&sous_choix);
+                                            } while (sous_choix == 1);
+                                            break;
 
-                    case 4:
-                        // Afficher les utilisateurs
-                        clear_screen();
-                        display_users(users);
-                        break;
+                                        case 0:
+                                            // Retour au menu
+                                            clear_screen();
+                                            break;
 
-                    default:
-                        break;
-                }
-                break;
+                                        default:
+                                            // Entrée invalide
+                                            getchar();
+                                            clear_screen();
+                                            break;
+                                    }
+                                } while (sous_choix == 1);
+                                clear_screen();
+                            case 6:
+                                // Afficher les utilisateurs
+                                clear_screen();
+                                display_users(users);
+                                wait_for_keypress();
+                                break;
+                            default:
+                                break;
+                        }
+                    } while (choix_menu2 != 10);
+            break;
 
             case 2:
                 if (graph != NULL) {
@@ -125,5 +148,7 @@ int main(void) {
     } while (choix_menu1 != 2);
 
     freeGraph(graph);
+    free(users);
+
     return 0;
 }

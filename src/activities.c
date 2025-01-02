@@ -18,6 +18,8 @@ struct Activity* newActivity(int position) {
         exit(1);
     }
 
+    new_activity->dest = position;
+
     // Lire les informations d'une activité,
     printf("Entrez le nom de l'activite (max 50 caracteres) : ");
     while (getchar() != '\n'); // Vider le tampon d'entrée
@@ -59,5 +61,41 @@ void add_activity(struct Graph** graph) {
     printf("Activite ajoutee au graphe a la position %d.\n", position);
     count++; // incrementer le nombre d'activités
 
+}
+
+void add_edge(struct Graph** graph) {
+    // Ajouter une arête entre deux activités
+    int src, dest;
+    printf("\nActivites disponibles:\n");
+    printGraph(*graph);
+    
+    printf("\nEntrez l'ID de l'activite source (0-%d): ", (*graph)->max_V - 1);
+    scanf("%d", &src);
+    
+    printf("Entrez l'ID de l'activite destination (0-%d): ", (*graph)->max_V - 1);
+    scanf("%d", &dest);
+
+    if (src < 0 || src >= (*graph)->max_V || dest < 0 || dest >= (*graph)->max_V) {
+        printf("Position invalide. Assurez-vous que la position est entre 0 et %d.\n", (*graph)->max_V - 1);
+        return;
+    }
+
+    if ((*graph)->head[src] == NULL) {
+        printf("Aucune activite n'existe a la position source.\n");
+        return;
+    }
+
+    if ((*graph)->head[dest] == NULL) {
+        printf("Aucune activite n'existe a la position de destination.\n");
+        return;
+    }
+
+    // Ajouter une arête entre les deux activités
+    struct Activity* temp = (*graph)->head[src];
+    while (temp->next != NULL) {
+        temp = temp->next;
+    }
+    temp->next = (*graph)->head[dest];
+    printf("Arete ajoutee entre les activites %d et %d.\n", src, dest);
 }
 

@@ -10,7 +10,6 @@ void clear_screen() {
 }
 
 // fonction pour controler la saisie
-
 void control_saisie1(int *choix) {
     char buffer[100];
     int valid;

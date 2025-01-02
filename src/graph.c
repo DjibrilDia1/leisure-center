@@ -33,18 +33,27 @@ struct Graph* createGraph(int max_V) {
     return graph;
 }
 
-void printGraph(struct Graph* graph){
-    for(int i = 1; i <= count; i++){
-        struct Activity* temp = graph->head[i];
-        printf("Activite %d: ", i);
-        while (temp != NULL) {
-            printf("%s -> ", temp->name);
+// Afficher le graphe
+void printGraph(struct Graph* graph) {
+    if (!graph) return;
+    printf("\n=== Liste des activites et leurs connexions ===\n");
+    for (int i = 0; i < graph->max_V; i++) {
+        Activity* temp = graph->head[i];
+        if (temp) {
+            printf("\nActivite %d: %s\n", i, temp->name);
+            printf("Description: %s\n", temp->description);
+            printf("Connectee a: ");
             temp = temp->next;
+            while (temp) {
+                printf("%s -> ", temp->name);
+                temp = temp->next;
+            }
+            printf("NULL\n");
         }
-        printf("NULL\n");
     }
 }
 
+// Libérer la mémoire allouée pour le graphe
 void freeGraph(struct Graph* graph) {
     for (int i = 0; i < graph->max_V; i++) {
         struct Activity* temp = graph->head[i];

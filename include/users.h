@@ -27,10 +27,8 @@ struct Numero {
 struct User{
     char Prenom[TAILLE_NOM];
     char Nom[TAILLE_NOM];
-    int numero_etudiant;
-    struct Date_de_naissance date;
-    struct Adresse adresse;
-    struct Numero numero;
+    int numero;
+    struct Numero tel;
 };
 
 // Ajouter des utilisateurs
@@ -39,5 +37,6 @@ void add_users(struct User les_utilisateurs[]);
 void display_users(struct User les_utilisateurs[]);
 // Modifier un utilisateur
 void mod_users(struct User *les_utilisateurs,int *taille);
+void free_users(struct User *les_utilisateurs);
 
 #endif // UTILISATEURS_H
