@@ -85,7 +85,21 @@ int main(void) {
                                 clear_screen();
                                 break;
                             case 4:
-                                // Supprimer les activités
+                                // Supprimer une ou plusieurs activités dans un graph
+                                do {
+                                    clear_screen();
+                                    if (graph != NULL && graph->V > 0) {
+                                        delete_activity(&graph);
+                                        printf("\nContinuer a supprimer des activites? (1=Oui, 0=Non): ");
+                                        control_saisie(&sous_choix);
+                                    } else {
+                                        printf("\nLe graphe est vide.\n");
+                                        wait_for_keypress();
+                                        sous_choix = 0;
+                                    }
+                                } while (sous_choix == 1);
+                                clear_screen();
+
                                 break;
                             
                             case 5 :// Ajouter un ou plusieurs utilisateurs
@@ -107,6 +121,7 @@ int main(void) {
                                                 printf("\n\t\tContinuer? (1=Oui, 0=Non): ");
                                                 control_saisie(&sous_choix);
                                             } while (sous_choix == 1);
+                                            clear_screen();
                                             break;
 
                                         case 0:
@@ -122,16 +137,40 @@ int main(void) {
                                     }
                                 } while (sous_choix == 1);
                                 clear_screen();
+
                             case 6:
                                 // Afficher les utilisateurs
                                 clear_screen();
                                 display_users(users);
                                 wait_for_keypress();
+                                clear_screen();
                                 break;
                             default:
                                 break;
+
+                            case 7:
+                                // Modifier un utilisateur
+                                do {
+                                    clear_screen();
+                                    mod_users(users);
+                                    printf("\nContinuer a modifier des utilisateurs? (1=Oui, 0=Non): ");
+                                    control_saisie(&sous_choix);
+                                } while (sous_choix == 1);
+                                clear_screen();
+                                break;
+
+                            case 8: 
+                                // Supprimer un utilisateur
+                                do {
+                                    clear_screen();
+                                    delete_user(users);
+                                    printf("\nContinuer a supprimer des utilisateurs? (1=Oui, 0=Non): ");
+                                    control_saisie(&sous_choix);
+                                } while (sous_choix == 1);
+                                clear_screen();
+                                break;
                         }
-                    } while (choix_menu2 != 10);
+                    } while (choix_menu2 != 10); // boucle pour le menu2--------------------------------------------------
             break;
 
             case 2:
@@ -139,14 +178,16 @@ int main(void) {
                     freeGraph(graph);
                 }
                 exit(0);
+                break;
 
             default:
                 clear_screen();
                 break;
         }
         clear_screen();
-    } while (choix_menu1 != 2);
+    } while (choix_menu1 != 2); // boucle pour le menu1--------------------------------------------------
 
+    // Libérer la mémoire allouée pour le graphe et les utilisateurs
     freeGraph(graph);
     free(users);
 

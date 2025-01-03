@@ -18,7 +18,7 @@ void menu2() {
     printf("\n\t***************************************************\n");
     printf("\t\t                MENU                         \n");
     printf("\t**************************************************\n");
-    printf("\n\t\t1.Ajouter une nouvelle activite\n");
+    printf("\n\t\t1. Ajouter une nouvelle activite\n");
     printf("\t\t2. Afficher toutes les activites disponibles\n");
     printf("\t\t3. Gerer activites\n");
     printf("\t\t4. Supprimer activites\n");

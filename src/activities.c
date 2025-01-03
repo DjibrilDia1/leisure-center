@@ -65,16 +65,17 @@ void add_activity(struct Graph** graph) {
 
 void add_edge(struct Graph** graph) {
     // Ajouter une arête entre deux activités
+    // src représente la position de l'activité source et dest représente la position de l'activité de destination
     int src, dest;
     printf("\nActivites disponibles:\n");
     printGraph(*graph);
-    
+    // Id de l'activité source
     printf("\nEntrez l'ID de l'activite source (0-%d): ", (*graph)->max_V - 1);
     scanf("%d", &src);
-    
+    // Id de l'activité de destination
     printf("Entrez l'ID de l'activite destination (0-%d): ", (*graph)->max_V - 1);
     scanf("%d", &dest);
-
+    // controlde de saisie
     if (src < 0 || src >= (*graph)->max_V || dest < 0 || dest >= (*graph)->max_V) {
         printf("Position invalide. Assurez-vous que la position est entre 0 et %d.\n", (*graph)->max_V - 1);
         return;
@@ -99,3 +100,31 @@ void add_edge(struct Graph** graph) {
     printf("Arete ajoutee entre les activites %d et %d.\n", src, dest);
 }
 
+void delete_activity(struct Graph** graph) {
+    // Supprimer une activité du graphe
+    // la posiiton de l'activité à supprimer
+    int position;
+    printf("\nActivites disponibles:\n");
+    printGraph(*graph);
+    
+    printf("\nEntrez l'ID de l'activite a supprimer (0-%d): ", (*graph)->max_V - 1);
+    scanf("%d", &position);
+
+    // controle de saisie dela position a suprimmer
+    if (position < 0 || position >= (*graph)->max_V) {
+        printf("Position invalide. Assurez-vous que la position est entre 0 et %d.\n", (*graph)->max_V - 1);
+        return;
+    }
+
+    if ((*graph)->head[position] == NULL) {
+        printf("Aucune activite n'existe a cette position.\n");
+        return;
+    }
+
+    // Supprimer l'activité à la position donnée
+    free((*graph)->head[position]);
+    (*graph)->head[position] = NULL;
+    (*graph)->V--;
+    printf("Activite supprimee du graphe a la position %d.\n", position);
+    count--; // décrémenter le nombre d'activités
+}

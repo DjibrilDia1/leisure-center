@@ -36,7 +36,10 @@ void add_users(struct User les_utilisateurs[]);
 // Afficher tous les utilisateurs
 void display_users(struct User les_utilisateurs[]);
 // Modifier un utilisateur
-void mod_users(struct User *les_utilisateurs,int *taille);
+void mod_users(struct User les_utilisateurs[]);
+// liberer la memoire allouee pour les utilisateurs
 void free_users(struct User *les_utilisateurs);
+// supprimer un utilisateur
+void delete_user(struct User les_utilisateurs[]);
 
 #endif // UTILISATEURS_H

@@ -19,5 +19,7 @@ struct Activity* newActivity(int position);
 void add_activity(struct Graph** graph);
 // Ajouter une arête entre deux activités
 void add_edge(struct Graph** graph);
+// Supprimer une activité du graphe
+void delete_activity(struct Graph** graph);
 
 #endif 
