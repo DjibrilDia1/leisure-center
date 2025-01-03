@@ -12,7 +12,7 @@ int count = 0;
 struct Activity* newActivity(int position) {
 
     // Allouer de la mémoire pour une nouvelle activité
-    struct Activity* new_activity = (Activity*)malloc(sizeof(Activity));
+    struct Activity* new_activity = (struct Activity*)malloc(sizeof(struct Activity));
     if(new_activity == NULL){
         printf("Erreur lors de l'allocation de la mémoire pour une nouvelle activite\n");
         exit(1);
@@ -31,12 +31,12 @@ struct Activity* newActivity(int position) {
     new_activity->description[strcspn(new_activity->description, "\n")] = '\0';
 
     //Initialiser le pointeur suivant à NULL
-    new_activity->next = NULL;
+    new_activity->connections = NULL;
 
     return new_activity;
 }
 
-
+// Ajouter une activité au graphe
 void add_activity(struct Graph** graph) {
 
     // Créer une nouvelle activité et l'ajouter au graphe
@@ -63,6 +63,7 @@ void add_activity(struct Graph** graph) {
 
 }
 
+// Ajouter une arête entre deux activités
 void add_edge(struct Graph** graph) {
     // Ajouter une arête entre deux activités
     // src représente la position de l'activité source et dest représente la position de l'activité de destination
@@ -91,15 +92,16 @@ void add_edge(struct Graph** graph) {
         return;
     }
 
-    // Ajouter une arête entre les deux activités
-    struct Activity* temp = (*graph)->head[src];
-    while (temp->next != NULL) {
-        temp = temp->next;
-    }
-    temp->next = (*graph)->head[dest];
+    // creation d'une nouvelle connexion pour une activité src
+    struct ActivityNode* new_node = (struct ActivityNode*)malloc(sizeof(struct ActivityNode));
+    new_node->activity = (*graph)->head[dest];
+    new_node->next= (*graph)->head[src]->connections;
+    (*graph)->head[src]->connections = new_node;
+
     printf("Arete ajoutee entre les activites %d et %d.\n", src, dest);
 }
 
+// Supprimer une activité du graphe
 void delete_activity(struct Graph** graph) {
     // Supprimer une activité du graphe
     // la posiiton de l'activité à supprimer
@@ -128,3 +130,13 @@ void delete_activity(struct Graph** graph) {
     printf("Activite supprimee du graphe a la position %d.\n", position);
     count--; // décrémenter le nombre d'activités
 }
+
+// Recommander une activité
+void recommend_activity(struct Graph* graph){
+    if(!graph || graph->V == 0){
+        printf("Le graphe est vide.\n");
+        return;
+    }
+
+    
+} 

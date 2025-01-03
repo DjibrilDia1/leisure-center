@@ -10,8 +10,10 @@
  struct Graph{  // liste adjacent
     int V; // nombre de sommets
     int max_V; // max sommets
-    struct Activity** head;
+    struct Activity** head; // Crée un tableau de pointeurs vers des activités
+    // İl devra etre initialisé avec malloc(max_V * sizeof(struct Activity*));
 } ;
+
 
 struct Graph* createGraph(int max_V) ; // Fonction pour créer un graphe avec un nombre de sommets donné
 void printGraph(struct Graph* graph); // Fonction pour afficher le graphe

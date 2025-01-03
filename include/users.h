@@ -3,20 +3,6 @@
 #define TAILLE_NOM 50
 #define TAILLE_TEL 10
 
-// structure pour la date de naissance
-struct Date_de_naissance {
-    int jour;
-    int mois;
-    int annee;
-};
-
-// structure pour l'adresse
-struct Adresse {
-    char Rue[TAILLE_NOM];
-    char ville[TAILLE_NOM];
-    int numero;
-};
-
 // structure pour le numero de telephone
 struct Numero {
     char indicatif[TAILLE_TEL];
