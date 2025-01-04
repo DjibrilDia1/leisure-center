@@ -27,15 +27,23 @@ void menu2() {
     printf("\t\t6. Afficher utilisateurs\n");
     printf("\t\t7. Modifier un utilisateur\n");
     printf("\t\t8. Supprimer un utilisateur\n");
-    printf("\t\t9. Recommander une activite a un utilisateur\n");
+    printf("\t\t9. choisir des activites pour un utilisateur\n");
+    printf("\t\t-----------------------------------------------\n");
+    printf("\t\t10. Recommander une activite a un utilisateur\n");
     printf("\t\t10. Quitter\n");
     printf("\n\tEnter your choice (1-10): ");
 }
 
 void menu_addUser(){
     // interface pour ajouter un utilisateur
-    printf("\n\t\t**************** Ajouter utilisateur******************\t\t\n");
+    printf("\n\t\t***********Ajouter utilisateur******************\t\t\n");
     printf("\t\t*****************Creation d'un nouveau dossier**********\t\t\n\n");
     printf("\t\t1 Pour creer un nouveau utilisateur.\n");
     printf("\t\t0 Pour retour au Menu \n");
+}
+
+void menu_displayUserinformation(){
+    // interface pour afficher les informations de l'utilisateur
+    printf("\n\t\t**************** Afficher les informations de l'utilisateur*********\t\n");
+    printf("\t\t*****************Informations de l'utilisateur**********\t\t\n\n");
 }

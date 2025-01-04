@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include "users.h"
 #include "utils.h"
+#include "graph.h"
+#include "menu.h"
 
 // Taille du tableau d'utilisateurs
 int taille = 0;
@@ -77,15 +79,37 @@ void add_users(struct User les_utilisateurs[]){
     created by: Djibril Dia
     description: Cette fonction nous sert a afficher les informations de l'utilisateur 
 */
-void display_users(struct User les_utilisateurs[]){
-    // Affichage des informations de l'utilisateur
-    int i;
-    for(i=0;i<taille;i++){
-        printf("\n\t\t\t\tUtilisateur[%d]:\n",i+1);
-		printf("\t\t\t\tPrenom:%s\n",les_utilisateurs[i].Prenom);
-		printf("\t\t\t\tNom:%s\n",les_utilisateurs[i].Nom);
-		printf("\t\t\t\tId:%d\n",les_utilisateurs[i].numero);
-	}
+
+void display_users(struct User les_utilisateurs[]) {
+    if (taille <= 0) {
+        printf("\n\tAucun utilisateur enregistre.\n");
+        return;
+    }
+
+    printf("\n\t=== Liste des Utilisateurs et leurs Activites ===\n");
+        for (int i = 0; i < taille; i++) {
+        printf("\n\tUtilisateur %d:", i + 1);
+        printf("\n\tNom: %s", les_utilisateurs[i].Nom);
+        printf("\n\tPrenom: %s", les_utilisateurs[i].Prenom);
+        printf("\n\tTelephone: %s%d", 
+            les_utilisateurs[i].tel.indicatif, 
+            les_utilisateurs[i].tel.numero);
+        
+        // Afficher les activités de l'utilisateur
+        printf("\n\tActivites: ");
+        struct UserActivity* current = les_utilisateurs[i].activities;
+        if (!current) {
+            printf("Aucune activite");
+        } else {
+            while (current != NULL) {
+                if (current->activity) {
+                    printf("\n\t\t- %s", current->activity->name);
+                }
+                current = current->next;
+            }
+        }
+        printf("\n\t------------------XXXXXXXXXXX----------------------\n");
+    }
 }
 
 /*
@@ -133,6 +157,7 @@ void mod_users(struct User les_utilisateurs[]){
     
 }
 
+// supprimer un utilisateur
 void delete_user(struct User les_utilisateurs[]){
     // Suppression d'un utilisateur
     int numero;
@@ -154,4 +179,72 @@ void delete_user(struct User les_utilisateurs[]){
         
     }
     
+}
+
+// Ajouter une activité à un utilisateur
+void add_user_activities(struct User les_utilisateurs[], struct Graph **graph) {
+    // Afficher les utilisateurs
+    display_users(les_utilisateurs);
+
+    // Entrer l'ID de l'utilisateur
+    int user_id;
+    printf("\n\t\tEntrez l'ID de l'utilisateur: ");
+    scanf("%d", &user_id);
+
+    // Rechercher l'utilisateur
+    int user_found = 0;
+    for (int i = 0; i < taille; i++) {
+        if (les_utilisateurs[i].numero == user_id) {
+
+            user_found = 1;
+            // vérifier si une activité est disponible
+            if((*graph)->max_V == 0){
+                printf("\t\tAucune activite n'est disponible.\n");
+                return;
+            }
+
+            // Afficher les activités disponibles
+            printf("\n\tActivites disponibles:\n");
+            printGraph(*graph);
+
+            // Entrer l'ID de l'activité
+            int activity_id;
+            printf("\n\tEntrez l'ID de l'activite: ");
+            scanf("%d", &activity_id);
+
+            // Vérifier si l'activité existe dans le graphe
+            if (activity_id < 0 || activity_id >= (*graph)->max_V || (*graph)->head[activity_id] == NULL) {
+                printf("\tActivite introuvable.\n");
+                return;
+            }
+
+            // Ajouter l'activité à la liste des activités de l'utilisateur
+            struct UserActivity *new_activity = (struct UserActivity *)malloc(sizeof(struct UserActivity));
+            if (new_activity == NULL) {
+                printf("Erreur d'allocation de memoire.\n");
+                return;
+            }
+
+            // Important: Set both activity_id and activity pointer
+            new_activity->activity_id = activity_id;
+            new_activity->activity = (*graph)->head[activity_id]; // Set the activity pointer
+            new_activity->next = les_utilisateurs[i].activities;
+            les_utilisateurs[i].activities = new_activity;
+
+            printf("\t\tActivite %s ajoutee a l'utilisateur %s %s.\n", 
+                (*graph)->head[activity_id]->name,
+                les_utilisateurs[i].Prenom,
+                les_utilisateurs[i].Nom);
+
+            // Afficher un message de confirmation
+            printf("\t\tActivite %d ajoutee a l'utilisateur %d.\n", activity_id, user_id);
+
+            return;
+        }
+    }
+
+    // Si l'utilisateur n'est pas trouvé
+    if (!user_found) {
+        printf("Utilisateur introuvable.\n");
+    }
 }

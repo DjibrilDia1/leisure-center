@@ -8,7 +8,7 @@
 #include "../include/users.h"      // inclure le fichier users.h
 
 #define MAX_ACTIVITIES 100 // nombre maximum d'activités(NODES)
-#define MAX_USERS 100      // nombre maximum d'activités(NODES)
+#define MAX_USERS 100      // nombre maximum d'utilisateurs
 
 /*
     Auteur: Djibril_Dia
@@ -165,6 +165,17 @@ int main(void) {
                                     clear_screen();
                                     delete_user(users);
                                     printf("\nContinuer a supprimer des utilisateurs? (1=Oui, 0=Non): ");
+                                    control_saisie(&sous_choix);
+                                } while (sous_choix == 1);
+                                clear_screen();
+                                break;
+                                
+                            case 9:
+                                // chosisir une activité pour un utilisateur
+                                do {
+                                    clear_screen();
+                                    add_user_activities(users, &graph);
+                                    printf("\nContinuer a ajouter des activites a des utilisateurs? (1=Oui, 0=Non): ");
                                     control_saisie(&sous_choix);
                                 } while (sous_choix == 1);
                                 clear_screen();

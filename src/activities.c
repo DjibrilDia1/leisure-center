@@ -60,7 +60,6 @@ void add_activity(struct Graph** graph) {
     (*graph)->V++;
     printf("Activite ajoutee au graphe a la position %d.\n", position);
     count++; // incrementer le nombre d'activités
-
 }
 
 // Ajouter une arête entre deux activités
@@ -95,7 +94,7 @@ void add_edge(struct Graph** graph) {
     // creation d'une nouvelle connexion pour une activité src
     struct ActivityNode* new_node = (struct ActivityNode*)malloc(sizeof(struct ActivityNode));
     new_node->activity = (*graph)->head[dest];
-    new_node->next= (*graph)->head[src]->connections;
+    new_node->next = (*graph)->head[src]->connections;
     (*graph)->head[src]->connections = new_node;
 
     printf("Arete ajoutee entre les activites %d et %d.\n", src, dest);
@@ -136,7 +135,5 @@ void recommend_activity(struct Graph* graph){
     if(!graph || graph->V == 0){
         printf("Le graphe est vide.\n");
         return;
-    }
-
-    
+    }    
 } 
