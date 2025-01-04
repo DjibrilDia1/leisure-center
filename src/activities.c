@@ -3,6 +3,8 @@
 #include <string.h>
 #include "activities.h"
 #include "graph.h"
+# include "menu.h"
+
 # define MAX_ACTIVITIES 100 // utilisé pour allouer de la mémoire pour le graphe
 
 // variable globale pour compter le nombre d'activités indépendamment de MAX_ACTIVITIES
@@ -21,12 +23,12 @@ struct Activity* newActivity(int position) {
     new_activity->dest = position;
 
     // Lire les informations d'une activité,
-    printf("Entrez le nom de l'activite (max 50 caracteres) : ");
+    printf("\t\tEntrez le nom de l'activite (max 50 caracteres) : ");
     while (getchar() != '\n'); // Vider le tampon d'entrée
     fgets(new_activity->name,sizeof(new_activity->name),stdin);
     new_activity->name[strcspn(new_activity->name, "\n")] = '\0'; // supprimer le '\n' à la fin du nom
 
-    printf("Entrez la description de l'activite (max 200 caracteres) : ");
+    printf("\t\tEntrez la description de l'activite (max 200 caracteres) : ");
     fgets(new_activity->description, sizeof(new_activity->description), stdin);
     new_activity->description[strcspn(new_activity->description, "\n")] = '\0';
 
@@ -39,9 +41,12 @@ struct Activity* newActivity(int position) {
 // Ajouter une activité au graphe
 void add_activity(struct Graph** graph) {
 
+    // Afficher le menu_addActivities();
+    menu_addActivities();
+
     // Créer une nouvelle activité et l'ajouter au graphe
     int position;
-    printf ("Entrez la position de l'activite (0-%d): ", (*graph)->max_V - 1);
+    printf ("\t\tEntrez la position de l'activite (1-%d): ", (*graph)->max_V - 1);
     scanf("%d", &position);
 
     // Vérifier si la position est valide
@@ -51,23 +56,24 @@ void add_activity(struct Graph** graph) {
     }
 
     if ((*graph)->head[position] != NULL) {
-        printf("Une activite existe déjà à cette position.\n");
+        printf("\t\tUne activite existe deja a cette position.\n");
         return;
     }
 
     // Ajouter une nouvelle activité à la position donnée
     (*graph)->head[position] = newActivity(position);
     (*graph)->V++;
-    printf("Activite ajoutee au graphe a la position %d.\n", position);
+    printf("\t\tActivite ajoutee au graphe a la position %d.\n", position);
     count++; // incrementer le nombre d'activités
 }
 
 // Ajouter une arête entre deux activités
 void add_edge(struct Graph** graph) {
+
+    void menu_Arete();
     // Ajouter une arête entre deux activités
     // src représente la position de l'activité source et dest représente la position de l'activité de destination
     int src, dest;
-    printf("\nActivites disponibles:\n");
     printGraph(*graph);
     // Id de l'activité source
     printf("\nEntrez l'ID de l'activite source (0-%d): ", (*graph)->max_V - 1);
@@ -105,20 +111,19 @@ void delete_activity(struct Graph** graph) {
     // Supprimer une activité du graphe
     // la posiiton de l'activité à supprimer
     int position;
-    printf("\nActivites disponibles:\n");
     printGraph(*graph);
     
-    printf("\nEntrez l'ID de l'activite a supprimer (0-%d): ", (*graph)->max_V - 1);
+    printf("\n\tEntrez l'ID de l'activite a supprimer (0-%d): ", (*graph)->max_V - 1);
     scanf("%d", &position);
 
     // controle de saisie dela position a suprimmer
     if (position < 0 || position >= (*graph)->max_V) {
-        printf("Position invalide. Assurez-vous que la position est entre 0 et %d.\n", (*graph)->max_V - 1);
+        printf("\tPosition invalide. Assurez-vous que la position est entre 0 et %d.\n", (*graph)->max_V - 1);
         return;
     }
 
     if ((*graph)->head[position] == NULL) {
-        printf("Aucune activite n'existe a cette position.\n");
+        printf("\tAucune activite n'existe a cette position.\n");
         return;
     }
 
@@ -126,14 +131,14 @@ void delete_activity(struct Graph** graph) {
     free((*graph)->head[position]);
     (*graph)->head[position] = NULL;
     (*graph)->V--;
-    printf("Activite supprimee du graphe a la position %d.\n", position);
+    printf("\tActivite supprimee du graphe a la position %d.\n", position);
     count--; // décrémenter le nombre d'activités
 }
 
 // Recommander une activité
 void recommend_activity(struct Graph* graph){
     if(!graph || graph->V == 0){
-        printf("Le graphe est vide.\n");
+        printf("\tLe graphe est vide.\n");
         return;
     }    
 } 

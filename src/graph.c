@@ -42,7 +42,7 @@ void printGraph(struct Graph* graph) {
         return;
     }
     
-    printf("\n\t\t=== Liste des activites et leurs connexions ===\n");
+    printf("\n\t=== Liste des activites et leurs connexions ===\n");
     for (int i = 0; i < graph->max_V; i++) {
         // current me permet d'accéder aux éléments de la liste d'adjacence
         struct Activity* current = graph->head[i];
@@ -55,7 +55,7 @@ void printGraph(struct Graph* graph) {
             // Parcourir la liste des activités connectées a la premiére activité de la liste adjacente
             while (connection != NULL) {
                 if (connection->activity) {
-                    printf("\t%s -> ", connection->activity->name);
+                    printf("%s -> ", connection->activity->name);
                 }
                 connection = connection->next;
             }

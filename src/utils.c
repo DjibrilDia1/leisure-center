@@ -17,11 +17,11 @@ void control_saisie1(int *choix) {
         valid = scanf("%d", choix);
         fgets(buffer, sizeof(buffer), stdin); // Clear input buffer
         
-        if (valid != 1 || (*choix < 1 || *choix > 10)) { // Allow choices 1-10 for main menu
-            printf("\n\t\t\t\tEntree invalide. Veuillez entrer un nombre entre 1 et 10.\n");
+        if (valid != 1 || (*choix < 1 || *choix > 11)) { // Allow choices 1-10 for main menu
+            printf("\n\t\tEntree invalide. Veuillez entrer un nombre entre 1 et 11.\n");
             printf("\n\t\t\t\tChoix: ");
         }
-    } while (valid != 1 || (*choix < 1 || *choix > 10));
+    } while (valid != 1 || (*choix < 1 || *choix > 11));
 }
 
 void control_saisie(int *choix) {
@@ -40,7 +40,7 @@ void control_saisie(int *choix) {
 }
 
 void wait_for_keypress() {
-    printf("\n\nAppuyez sur Entree pour continuer...");
+    printf("\n\n\t\tAppuyez sur Entree pour continuer...");
     while(getchar() != '\n'); // Clear any remaining characters
     getchar(); // Wait for Enter key
 }

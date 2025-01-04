@@ -31,4 +31,5 @@ void delete_activity(struct Graph** graph);
 void recommend_activity(struct Graph* graph); 
 
 
+
 #endif 
