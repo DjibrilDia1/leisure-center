@@ -1,44 +1,80 @@
-# Leisure Center Activity Management System
+## Système de Gestion d'un Centre de Loisirs
 
-## Overview
-This project models activities in a leisure center as a graph, where each activity is represented as a node and the links between them are edges. It includes algorithms to recommend activities to users based on their preferences.
+## Description
+Application de gestion d'activités pour un centre de loisirs permettant:
+- Gestion des activités (ajout, suppression, modification)
+- Gestion des utilisateurs
+- Système de recommandation d'activités
+- Interface administrateur 
 
-## Project Structure
+## Prérequis
+- GCC (GNU Compiler Collection)
+- Make (optionnel)
+- Windows ou Linux
+
+## Installation
+
+### Windows
+```bash
+# Compiler le projet
+gcc main.c src/* -o main -Iinclude
+
+# Exécuter le programme
+./main.exe && rm main.exe 
 ```
-leisure-center
-├── include
+
+## Utilisation
+
+### Connexion
+    * Admin:
+        - Username: admin
+        - Password: passer
+
+### Menu Principal
+    1.Gestion des activités
+        ->Ajouter une activité
+        ->Afficher les activités
+        ->Connecter des activités
+        ->Supprimer une activité
+        ->Gestion des utilisateurs
+
+        ->Ajouter un utilisateur
+        ->Afficher les utilisateurs
+        ->Modifier un utilisateur
+        ->Supprimer un utilisateur
+
+    2.Gestion des utilisateurs
+        Ajouter un utilisateur
+        Afficher les utilisateurs
+        Modifier un utilisateur
+        Supprimer un utilisateur
+
+## Structure du projet
+projet/
+├── include/
+│   ├── activities.h
+│   ├── admin_and_users.h
+│   ├── auth.h
 │   ├── graph.h
-│   └── activities.h
-├── src
-│   ├── main.c
+│   ├── menu.h
+│   ├── users.h
+│   └── utils.h
+├── src/
+│   ├── activities.c
+│   ├── admin_and_users.c
+│   ├── auth.c
 │   ├── graph.c
-│   └── activities.c
-├── tests
-│   ├── test_graph.c
-│   └── test_activities.c
-├── Makefile
+│   ├── main.c
+│   ├── menu.c
+│   ├── users.c
+│   └── utils.c
+|
+|── main.c
+|
 └── README.md
-```
 
-## Compilation Instructions
-To compile the project, navigate to the project directory and run the following command:
+## Auteur
+    - Djibril Dia
 
-
-This will compile the source files and create the executable.
-
-## Execution Instructions
-To run the application, use the following command after compilation:
-
-```bash
-./leisure-center
-```
-
-## Testing Instructions
-To run the tests, use the following command:
-
-```bash
-make test
-```
-
-## Additional Information
-This project includes well-documented code sections and a report detailing the implementation, along with screenshots of executions and tests.
+## License
+Ce projet est sous licence MIT ``` 
