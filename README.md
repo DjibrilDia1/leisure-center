@@ -50,28 +50,28 @@ gcc main.c src/* -o main -Iinclude
         Supprimer un utilisateur
 
 ## Structure du projet
-projet/
-├── include/
-│   ├── activities.h
-│   ├── admin_and_users.h
-│   ├── auth.h
-│   ├── graph.h
-│   ├── menu.h
-│   ├── users.h
-│   └── utils.h
-├── src/
-│   ├── activities.c
-│   ├── admin_and_users.c
-│   ├── auth.c
-│   ├── graph.c
-│   ├── main.c
-│   ├── menu.c
-│   ├── users.c
-│   └── utils.c
-|
-|── main.c
-|
-└── README.md
+    projet/
+    ├── include/
+    │   ├── activities.h
+    │   ├── admin_and_users.h
+    │   ├── auth.h
+    │   ├── graph.h
+    │   ├── menu.h
+    │   ├── users.h
+    │   └── utils.h
+    ├── src/
+    │   ├── activities.c
+    │   ├── admin_and_users.c
+    │   ├── auth.c
+    │   ├── graph.c
+    │   ├── main.c
+    │   ├── menu.c
+    │   ├── users.c
+    │   └── utils.c
+    |
+    |── main.c
+    |
+    └── README.md
 
 ## Auteur
     - Djibril Dia
