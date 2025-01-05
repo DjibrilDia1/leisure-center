@@ -4,6 +4,7 @@
 #include "utils.h"
 #include "graph.h"
 #include "menu.h"
+#include "activities.h"
 
 // Taille du tableau d'utilisateurs
 int taille = 0;
@@ -73,13 +74,28 @@ void add_users(struct User les_utilisateurs[]){
     taille++;
 }
 
+
+// Fonction d'aide a display_users
+void display_activity_connections(struct Activity* activity) {
+    if (!activity || !activity->connections) {
+        return;
+    }
+    
+    struct ActivityNode* connection = activity->connections;
+    while (connection != NULL) {
+        if (connection->activity) {
+            printf("\n\t\t\t-> %s", connection->activity->name);
+        }
+        connection = connection->next;
+    }
+}
+
 /*
     name: Afficher des utilisateurs
     return value: NULL
     created by: Djibril Dia
     description: Cette fonction nous sert a afficher les informations de l'utilisateur 
 */
-
 void display_users(struct User les_utilisateurs[]) {
     if (taille <= 0) {
         printf("\n\tAucun utilisateur enregistre.\n");
@@ -87,7 +103,7 @@ void display_users(struct User les_utilisateurs[]) {
     }
 
     printf("\n\t=== Liste des Utilisateurs et leurs Activites ===\n");
-        for (int i = 0; i < taille; i++) {
+    for (int i = 0; i < taille; i++) {
         printf("\n\tUtilisateur %d:", i + 1);
         printf("\n\tNom: %s", les_utilisateurs[i].Nom);
         printf("\n\tPrenom: %s", les_utilisateurs[i].Prenom);
@@ -95,7 +111,6 @@ void display_users(struct User les_utilisateurs[]) {
             les_utilisateurs[i].tel.indicatif, 
             les_utilisateurs[i].tel.numero);
         
-        // Afficher les activités de l'utilisateur
         printf("\n\tActivites: ");
         struct UserActivity* current = les_utilisateurs[i].activities;
         if (!current) {
@@ -104,13 +119,18 @@ void display_users(struct User les_utilisateurs[]) {
             while (current != NULL) {
                 if (current->activity) {
                     printf("\n\t\t- %s", current->activity->name);
+                    if (current->activity->connections) {
+                        printf(" (Connections:)");
+                        display_activity_connections(current->activity);
+                    }
                 }
                 current = current->next;
             }
         }
-        printf("\n\t------------------XXXXXXXXXXX----------------------\n");
+        printf("\n\t----------------------------------------\n");
     }
 }
+
 
 /*
     name: Liberer la memoire allouee pour les utilisateurs
@@ -181,7 +201,7 @@ void delete_user(struct User les_utilisateurs[]){
     
 }
 
-// Ajouter une activité à un utilisateur
+// Recommander des activités pour un utilisateur
 void add_user_activities(struct User les_utilisateurs[], struct Graph **graph) {
     // Afficher les utilisateurs
     display_users(les_utilisateurs);
@@ -218,18 +238,18 @@ void add_user_activities(struct User les_utilisateurs[], struct Graph **graph) {
                 return;
             }
 
-            // Ajouter l'activité à la liste des activités de l'utilisateur
+            // Créer une nouveau de noeud de recommandation pour l'utilisateur
             struct UserActivity *new_activity = (struct UserActivity *)malloc(sizeof(struct UserActivity));
             if (new_activity == NULL) {
                 printf("Erreur d'allocation de memoire.\n");
                 return;
             }
 
-            // Important: Set both activity_id and activity pointer
-            new_activity->activity_id = activity_id;
-            new_activity->activity = (*graph)->head[activity_id]; // Set the activity pointer
-            new_activity->next = les_utilisateurs[i].activities;
-            les_utilisateurs[i].activities = new_activity;
+            //
+            new_activity->activity_id = activity_id; // id de l'activité
+            new_activity->activity = (*graph)->head[activity_id]; // pointe vers l'activité
+            new_activity->next = les_utilisateurs[i].activities; // pointe vers l'activité suivante
+            les_utilisateurs[i].activities = new_activity; // pointe vers la nouvelle activité
 
             printf("\t\tActivite %s ajoutee a l'utilisateur %s %s.\n", 
                 (*graph)->head[activity_id]->name,

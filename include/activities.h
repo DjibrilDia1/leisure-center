@@ -4,7 +4,6 @@
 // declaration anticipée
 struct Graph;
 
-//struct Graph;
 struct Activity { // Activité == noeud du graphe
     int dest; // destination de l'activité (position dans le graphe)
     char name[100]; // nom de l'activité
@@ -27,8 +26,7 @@ void add_activity(struct Graph** graph);
 void add_edge(struct Graph** graph);
 // Supprimer une activité du graphe
 void delete_activity(struct Graph** graph);
-// Recommander une activité
-void recommend_activity(struct Graph* graph); 
+
 
 
 

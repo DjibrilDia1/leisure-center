@@ -13,8 +13,8 @@ void menu1(){
     printf("\t\t                    ACCUEIL                     \n");
     printf("\t\t****************************************************\n");
     printf("\n\t\t\tBIENVENUE DANS L'APPLICATION"); 
-    printf("\n\n\t\t\t           DE");
-    printf("\n\n\t\t\t GESTION D'UN CENTRE DE LOISIRS\n");
+    printf("\n\n\t\t\t             DE");
+    printf("\n\n\t\t\tGESTION D'UN CENTRE DE LOISIRS\n");
     printf("\n\t\t Tapez 1 pour continuer.\n");
     printf("\n\t\t Tapez 2 pour quitter.\n");
 }
@@ -34,14 +34,13 @@ void menu2() { // menu admin
     printf("\t\t6. Afficher utilisateurs\n");
     printf("\t\t7. Modifier un utilisateur\n");
     printf("\t\t8. Supprimer un utilisateur\n");
-    printf("\t\t9. choisir des activites pour un utilisateur\n");
+    printf("\t\t9. Recommander des activites pour un utilisateur\n");
     printf("\n\t-----------------------------------------------------------\n");
-    printf("\t\t10. Recommander une activite a un utilisateur\n");
-    printf("\t\t11. Quitter\n");
-    printf("\n\tEnter your choice (1-10): ");
+    printf("\t\t10. Retour au Menu\n");
+    printf("\n\tFaites votre choix (1-10): ");
 }
 
-// Menu de l'utilisateur
+// Menu de l'utilisateur , A implémenter pour la partie utilisateur
 void userMenu(void) {
     printf("\n\t=== Menu Utilisateur ===\n");
     printf("\t1. Voir les activites\n");
@@ -61,7 +60,7 @@ void menu_addUser(){
 void menu_displayUserinformation(){
     // interface pour afficher les informations de l'utilisateur
     printf("\n\t\t**************** Afficher les informations de l'utilisateur*********\t\n");
-    printf("\t\t*****************Informations de l'utilisateur**********\t\t\n\n");
+    printf("\t*****************Informations de l'utilisateur**********\t\t\n\n");
 }
 
 void menu_addActivities(){

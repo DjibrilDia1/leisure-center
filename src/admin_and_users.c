@@ -8,7 +8,6 @@
 #include "../include/users.h"      // inclure le fichier users.h
 #include "../include/auth.h"       // inclure le fichier auth.h
 
-
 void handle_admin(struct Graph** graph, struct User users[]) {
     // Menu de l'administrateur
     clear_screen();
@@ -169,7 +168,7 @@ void handle_admin(struct Graph** graph, struct User users[]) {
                                 clear_screen();
                                 break;
                         }
-                    } while (choix_menu2 != 11); // boucle pour le menu2--------------------------------------------------
+                    } while (choix_menu2 != 10); // boucle pour le menu2--------------------------------------------------
             break;
 
             case 2:
@@ -185,3 +184,6 @@ void handle_admin(struct Graph** graph, struct User users[]) {
         clear_screen();
     } while (choix_menu1 != 2); // boucle pour le menu1--------------------------------------------------
 }
+
+// void handle_user_menu(struct Graph* graph, struct User users[], int user_id) { // A implémenter pour la partie utilisateur
+//---------------------------------------------------------------------

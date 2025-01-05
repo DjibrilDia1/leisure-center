@@ -43,5 +43,6 @@ void delete_user(struct User les_utilisateurs[]);
 // Ajouter une activité à un utilisateur
 void add_user_activities(struct User les_utilisateurs[],struct Graph **graph);
 //void display_user_activities(struct User* users, int user_id);
+void display_activity_connections(struct Activity* activity);
 
 #endif // UTILISATEURS_H

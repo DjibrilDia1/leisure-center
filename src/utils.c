@@ -15,13 +15,13 @@ void control_saisie1(int *choix) {
     int valid;
     do {
         valid = scanf("%d", choix);
-        fgets(buffer, sizeof(buffer), stdin); // Clear input buffer
+        fgets(buffer, sizeof(buffer), stdin); // effacer le tampon d'entrée
         
-        if (valid != 1 || (*choix < 1 || *choix > 11)) { // Allow choices 1-10 for main menu
+        if (valid != 1 || (*choix < 1 || *choix > 10)) { // choix entre 1 et 10
             printf("\n\t\tEntree invalide. Veuillez entrer un nombre entre 1 et 11.\n");
             printf("\n\t\t\t\tChoix: ");
         }
-    } while (valid != 1 || (*choix < 1 || *choix > 11));
+    } while (valid != 1 || (*choix < 1 || *choix > 10));
 }
 
 void control_saisie(int *choix) {
@@ -29,7 +29,7 @@ void control_saisie(int *choix) {
     int valid;
     do {
         valid = scanf("%d", choix);
-        fgets(buffer, sizeof(buffer), stdin); // Clear input buffer
+        fgets(buffer, sizeof(buffer), stdin); // effacer le tampon d'entrée
         
         if (valid != 1 || (*choix != 0 && *choix != 1)) {
             printf("\n\t\t\t\t1 pour continuer");
@@ -41,6 +41,5 @@ void control_saisie(int *choix) {
 
 void wait_for_keypress() {
     printf("\n\n\t\tAppuyez sur Entree pour continuer...");
-    while(getchar() != '\n'); // Clear any remaining characters
-    getchar(); // Wait for Enter key
+    while(getchar() != '\n'); // effacer tous les caractères du tampon d'entrée
 }
